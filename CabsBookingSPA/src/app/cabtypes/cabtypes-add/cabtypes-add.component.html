@@ -1,0 +1,13 @@
+<div class="container">
+    <form (ngSubmit)="add()">
+        <div  style="margin:5% 7%; display:flexbox ; justify-content:center">
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="email">Cab Type Name</label>
+                <input type="text" class="form-control" id="cabTypeName" aria-describedby="cabTypeNameHelp" name="cabTypeName"
+                  placeholder="{{cabtype.cabTypeName}}"  [(ngModel)]="cabtype.cabTypeName" />
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="submit" />
+        </div>
+    </form>
+</div>

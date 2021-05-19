@@ -1,0 +1,26 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th scope="col">Id</th>
+      <th scope="col">Cab Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let place of places">
+      <td>
+        <div class="d-inline-block" ngbDropdown >
+            <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownToggle ngbDropdownAnchor >More</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <a ngbDropdownItem [routerLink]="[ '/places/add']" >Add</a>
+              <a [routerLink]="['/places/detail', place.placeId]" ngbDropdownItem>Detail</a>
+              <a [routerLink]="['/places/edit', place.placeId]" ngbDropdownItem>Edit</a>
+            </div>
+          </div>   
+      </td>
+      <td>{{ place.placeId }}</td>
+      <td>{{ place.placeName }}</td> 
+    </tr>
+    
+    </tbody>
+  </table>

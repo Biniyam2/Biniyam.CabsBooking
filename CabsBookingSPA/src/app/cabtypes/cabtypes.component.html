@@ -1,0 +1,28 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th scope="col">Id</th>
+      <th scope="col">Cab Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let cab of cabtypes">
+      <td>
+        <div class="d-inline-block" ngbDropdown >
+            <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownToggle ngbDropdownAnchor >More</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <a ngbDropdownItem [routerLink]="[ '/cabType/add']" >Add</a>
+              <a [routerLink]="['/cabType/detail', cab.cabTypeId]" ngbDropdownItem>Detail</a>
+              <a [routerLink]="['/cabType/edit', cab.cabTypeId]" ngbDropdownItem> Edit</a>
+              
+            </div>
+          </div>   
+      </td>
+      <td>{{ cab.cabTypeId }}</td>
+      <td>{{ cab.cabTypeName }}</td> 
+    </tr>
+    </tbody>
+  </table>
+  
+ 

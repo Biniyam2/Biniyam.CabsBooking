@@ -1,0 +1,55 @@
+<div class="container">
+    
+        <div  style="margin:5% 7%; display:flexbox ; justify-content:center">
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="email">Email address</label><br>
+                <label for="email">{{booking?.email}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="bookingDate">Booking Date</label><br>
+                <label for="bookingDate">{{booking?.bookingDate}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="bookingTime">Booking Time</label><br>
+                <label for="bookingTime">{{booking?.bookingTime}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="FromPlace">From Place</label><br>
+                <label for="fromPlace">{{booking?.fromPlace}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="toPlace">To Place</label><br>
+                <label for="toPlace">{{booking?.toPlace}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupAddress">Pickup Address</label><br>
+                <label for="pickupAddress">{{booking?.pickupAddress}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="landMark">Land Mark</label><br>
+                <label for="landMask">{{booking?.landMark}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupDate">PickupDate</label><br>
+                <label for="pickupDate">{{booking?.pickupDate}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupTime">PickupTime</label><br>
+                <label for="pickupTime">{{booking?.pickupTime}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="cabTypesId">CabTypesId</label><br>
+                <label for="cabTypesId">{{booking?.cabTypesId}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="contactNo">ContactNo</label><br>
+                <label for="contactNo">{{booking?.contactNo}}</label>
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="status">Status</label><br>
+                <label for="status">{{booking?.status}}</label>
+            </div>
+            <button (click)="delete()">Delete</button>
+        </div>
+   
+</div>

@@ -1,0 +1,57 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th scope="col">Id</th>
+      <th scope="col">Email</th>
+      <th scope="col">BookingsDate</th>
+      <th scope="col">BookingsTime</th>
+      <th scope="col">FromPlace</th>
+      <th scope="col">ToPlace</th>
+      <th scope="col">Pick up address</th>
+      <th scope="col">Land Mark</th>
+      <th scope="col">Pickup Date</th>
+      <th scope="col">Pickup Time</th>
+      <th scope="col">CabTypes Id</th>
+      <th scope="col">ContactNo</th>
+      <th scope="col">Status</th>
+      <th scope="col">Comp_time</th>
+      <th scope="col">Charge</th>
+      <th scope="col">Feedback</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of bookings">
+      <td>
+        <div class="d-inline-block" ngbDropdown >
+            <button class="btn btn-outline-primary mr-2" id="dropdownManual" ngbDropdownToggle ngbDropdownAnchor >More</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <a ngbDropdownItem [routerLink]="[ '/bookingsHistory/add']" >Add</a>
+              <a [routerLink]="['/bookingsHistory/detail', book.id]" ngbDropdownItem>Detail</a>
+              <a [routerLink]="['/bookingsHistory/edit', book.id]" ngbDropdownItem  > ngbDropdownItem>Edit</a>
+           
+            </div>
+          </div>   
+      </td>
+      <td>{{ book.id }}</td>      
+      <td>{{ book.email }}</td>
+      <td>{{ book.bookingDate  }}</td>
+      <td>{{ book.bookingTime  }}</td>
+      <td>{{ book.fromPlace  }}</td>
+      <td>{{ book.toPlace  }}</td>
+      <td>{{ book.pickupAddress  }}</td>
+      <td>{{ book.landMark  }}</td>
+      <td>{{ book.pickupDate  }}</td>
+      <td>{{ book.pickupTime  }}</td>
+      <td>{{ book.cabTypesId  }}</td>
+      <td>{{ book.contactNo  }}</td>
+      <td>{{ book.status  }}</td>
+      <td>{{ book.comp_time  }}</td>
+      <td>{{ book.charge  }}</td>
+      <td>{{ book.feedback }}</td>
+    </tr>
+    </tbody>
+  </table>
+  
+  

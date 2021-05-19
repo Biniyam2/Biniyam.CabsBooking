@@ -1,0 +1,83 @@
+<div class="container">
+    <form (ngSubmit)="add()">
+        <div  style="margin:5% 7%; display:flexbox ; justify-content:center">
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" name="email"
+                  placeholder="{{booking.email}}"  [(ngModel)]="booking.email" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="bookingDate">Booking Date</label>
+                <input type="date" class="form-control" id="bookingDate" name="bookingDate"
+                placeholder="{{booking.bookingDate}}"   [(ngModel)]="booking.bookingDate" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="bookingTime">Booking Time</label>
+                <input type="text" class="form-control" id="bookingTime" aria-describedby="booking Time" name="bookingTime"
+                placeholder="{{booking.bookingTime}}"  [(ngModel)]="booking.bookingTime" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="FromPlace">From Place</label>
+                <input type="text" class="form-control" id="fromPlace" name="fromPlace"
+                    [(ngModel)]="booking.fromPlace">
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="toPlace">To Place</label>
+                <input type="text" class="form-control" id="toPlace" aria-describedby="toPlace Help" name="toPlace"
+                    [(ngModel)]="booking.toPlace" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupAddress">Pickup Address</label>
+                <input type="text" class="form-control" id="pickupAddress" name="pickupAddress"
+                    [(ngModel)]="booking.pickupAddress" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="landMark">Land Mark</label>
+                <input type="text" class="form-control" id="landMark" aria-describedby="landMark Help" name="landMark"
+                    [(ngModel)]="booking.landMark" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupDate">PickupDate</label>
+                <input type="date" class="form-control" id="pickupDate" name="pickupDate"
+                    [(ngModel)]="booking.pickupDate" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="pickupTime">PickupTime</label>
+                <input type="text" class="form-control" id="pickupTime" aria-describedby="pickupTimeHelp" name="pickupTime"
+                    [(ngModel)]="booking.pickupTime" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="cabTypesId">CabTypesId</label>
+                <input type="number" class="form-control" id="cabTypesId" name="cabTypesId"
+                    [(ngModel)]="booking.cabTypesId" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="contactNo">ContactNo</label>
+                <input type="ContactNo" class="form-control" id="ContactNo" name="ContactNo"
+                    [(ngModel)]="booking.contactNo" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="status">Status</label>
+                <input type="ContactNo" class="form-control" id="Status" name="Status"
+                    [(ngModel)]="booking.status" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="comp_time">Status</label>
+                <input type="text" class="form-control" id="comp_time" name="comp_time"
+                    [(ngModel)]="booking.comp_time" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label for="charge">Charge</label>
+                <input type="number" class="form-control" id="charge" name="charge"
+                    [(ngModel)]="booking.charge" />
+            </div>
+            <div class="form-group" style=" max-width: 50%; ">
+                <label >Feedback</label>
+                <input type="text" class="form-control" id="feedback" name="feedback"
+                    [(ngModel)]="booking.feedback" />
+            </div>
+
+            <input type="submit" class="btn btn-primary" value="submit" />
+        </div>
+    </form>
+</div>

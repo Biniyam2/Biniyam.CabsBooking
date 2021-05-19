@@ -1,0 +1,61 @@
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th scope="col">Id</th>
+      <th scope="col">Email</th>
+      <th scope="col">BookingsDate</th>
+      <th scope="col">BookingsTime</th>
+      <th scope="col">FromPlace</th>
+      <th scope="col">ToPlace</th>
+      <th scope="col">Pick up address</th>
+      <th scope="col">Land Mark</th>
+      <th scope="col">Pickup Date</th>
+      <th scope="col">Pickup Time</th>
+      <th scope="col">CabTypes Id</th>
+      <th scope="col">ContactNo</th>
+      <th scope="col">Status</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let book of bookings">
+      <td>
+        <div class="d-inline-block" ngbDropdown >
+            <button class="btn btn-outline-primary " id="dropdownManual" ngbDropdownAnchor ngbDropdownToggle >More</button>
+            <div ngbDropdownMenu aria-labelledby="dropdownManual">
+              <a  ngbDropdownItem [routerLink]="[ '/bookings/add']" >Add</a>
+              <a [routerLink]="['/bookings/detail', book.id]" ngbDropdownItem>Detail</a>
+              <a [routerLink]="['/bookings/edit', book.id]" ngbDropdownItem > Edit</a>
+            
+             
+            </div>
+          </div>   
+      </td>
+      <td>{{ book.id }}</td>      
+      <td>{{ book.email }}</td>
+      <td>{{ book.bookingDate  }}</td>
+      <td>{{ book.bookingTime  }}</td>
+      <td>{{ book.fromPlace  }}</td>
+      <td>{{ book.toPlace  }}</td>
+      <td>{{ book.pickupAddress  }}</td>
+      <td>{{ book.landMark  }}</td>
+      <td>{{ book.pickupDate  }}</td>
+      <td>{{ book.pickupTime  }}</td>
+      <td>{{ book.cabTypesId  }}</td>
+      <td>{{ book.contactNo  }}</td>
+      <td>{{ book.status  }}</td>
+    </tr>
+    </tbody>
+  </table>
+  
+  <!-- <div class="d-flex justify-content-between p-2">
+    <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshCountries()">
+    </ngb-pagination>
+  
+    <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshCountries()">
+      <option [ngValue]="2">2 items per page</option>
+      <option [ngValue]="4">4 items per page</option>
+      <option [ngValue]="6">6 items per page</option>
+    </select>
+  </div> -->
