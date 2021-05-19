@@ -1,17 +1,25 @@
-<div class="container">
+<div class="container p-3 mb-2 bg-secondary text-white" style="margin: 120px; border-style: solid;">
     
-    <div  style="margin:5% 7%; display:flexbox ; justify-content:center">
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="placeId">Place Id</label> <br>
-            <label for="placeId">{{place?.placeId}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="placeName">Place Name</label> <br>
-            <label for="cplaceName">{{place?.placeName}}</label>
-        </div>
+    <div  style="margin:5% 7%; display:flexbox ; justify-content:center; ">
        
+        <dl class="row">
+            <dt class = "col-sm-2">
+                Place Id
+            </dt>
+            <dd class = "col-sm-10">
+                {{place?.placeId}}
+            </dd>
+            <dt class = "col-sm-2">
+                Place Name
+            </dt>
+            <dd class = "col-sm-10">
+                {{place?.placeName}}
+            </dd>
+        </dl>
         <button class="btn btn-danger" (click)="delete()">Delete</button>
         
     </div>
 
 </div>
+
+

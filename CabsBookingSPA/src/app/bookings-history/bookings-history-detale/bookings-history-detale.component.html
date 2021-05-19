@@ -1,67 +1,106 @@
-<div class="container">
+<div class="container ">
     
-    <div  style="margin:5% 7%; display:flexbox ; justify-content:center">
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="email">Email address</label><br>
-            <label for="email">{{booking?.email}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="bookingDate">Booking Date</label><br>
-            <label for="bookingDate">{{booking?.bookingDate}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="bookingTime">Booking Time</label><br>
-            <label for="bookingTime">{{booking?.bookingTime}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="FromPlace">From Place</label><br>
-            <label for="fromPlace">{{booking?.fromPlace}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="toPlace">To Place</label><br>
-            <label for="toPlace">{{booking?.toPlace}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="pickupAddress">Pickup Address</label><br>
-            <label for="pickupAddress">{{booking?.pickupAddress}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="landMark">Land Mark</label><br>
-            <label for="landMask">{{booking?.landMark}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="pickupDate">PickupDate</label><br>
-            <label for="pickupDate">{{booking?.pickupDate}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="pickupTime">PickupTime</label><br>
-            <label for="pickupTime">{{booking?.pickupTime}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="cabTypesId">CabTypesId</label><br>
-            <label for="cabTypesId">{{booking?.cabTypesId}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="contactNo">ContactNo</label><br>
-            <label for="contactNo">{{booking?.contactNo}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="status">Status</label><br>
-            <label for="status">{{booking?.status}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="comp_time">Comp time</label><br>
-            <label for="comp_time">{{booking?.comp_time}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label for="charge">Charge</label><br>
-            <label for="charge">{{booking?.charge}}</label>
-        </div>
-        <div class="form-group" style=" max-width: 50%; ">
-            <label >Feedback</label><br>
-            <label >{{booking?.feedback}}</label>
-        </div>
-        <button class="btn btn-danger" (click)="delete()">Delete</button>
+    <div class="p-3 mb-2 bg-secondary text-white" style="margin:5% 7%; display:flexbox ; justify-content:center"  style="margin: 50px; border-style: solid;">
+
+        <dl class="row" style="margin: 20px; ">
+            <dt class = "col-sm-2">
+                ContactNo
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.contactNo}}
+            </dd>
+            <dt class = "col-sm-2">
+                Email address
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.email}}
+            </dd>
+            <dt class = "col-sm-2">
+                Booking Date
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.bookingDate}}
+            </dd>
+            <dt class = "col-sm-2">
+                Booking Time
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.bookingTime}}
+            </dd>
+            <dt class = "col-sm-2">
+                From Place
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.fromPlace}}
+            </dd>
+            <dt class = "col-sm-2">
+                To Place
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.toPlace}}
+            </dd>
+            <dt class = "col-sm-2">
+                Pickup Address
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.pickupAddress}}
+            </dd>
+            <dt class = "col-sm-2">
+                Land Mark
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.landMark}}
+            </dd>
+            <dt class = "col-sm-2">
+                PickupDate
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.pickupDate}}
+            </dd>
+            <dt class = "col-sm-2">
+                PickupTime
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.pickupTime}}
+            </dd>
+            <dt class = "col-sm-2">
+                CabTypesId
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.cabTypesId}}
+            </dd>
+            <dt class = "col-sm-2">
+                ContactNo
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.contactNo}}
+            </dd>
+            <dt class = "col-sm-2">
+                Status
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.status}}
+            </dd>
+            <dt class = "col-sm-2">
+                Comp time
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.comp_time}}
+            </dd>
+            <dt class = "col-sm-2">
+                Charge
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.charge}}
+            </dd>
+            <dt class = "col-sm-2">
+                Feedback
+            </dt>
+            <dd class = "col-sm-10">
+                {{booking?.feedback}}
+            </dd>
+        </dl>
+        <button style="margin: 20px; " class="btn btn-danger" (click)="delete()">Delete</button>
     </div>
 
 </div>
