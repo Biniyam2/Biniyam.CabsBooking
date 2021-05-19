@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj": {}
+    "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj": {
+    "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj",
+        "projectUniqueName": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj",
         "projectName": "ApplicationCore",
-        "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj",
+        "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj",
         "packagesPath": "C:\\Users\\Biniyam\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\obj\\",
+        "outputPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -87,14 +87,14 @@
         }
       }
     },
-    "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj": {
+    "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj",
+        "projectUniqueName": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj",
         "projectName": "Infrastructure",
-        "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj",
+        "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\Infrastructure\\Infrastructure.csproj",
         "packagesPath": "C:\\Users\\Biniyam\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\Infrastructure\\obj\\",
+        "outputPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\Infrastructure\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -118,8 +118,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj": {
-                "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj"
+              "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj": {
+                "projectPath": "C:\\Users\\Biniyam\\Desktop\\AspClass\\FinalIvaluation\\Biniam.AspNet.CabsBooking\\ApplicationCore\\ApplicationCore.csproj"
               }
             }
           }

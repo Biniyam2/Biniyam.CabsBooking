@@ -16,7 +16,7 @@ export class BookingsService {
     return this.apiService.getOne(`${`bookings/`}${id}`);
   }
   deleteBookings(id : number): Observable<Bookings> {
-    return this.apiService.delete(`${`bookings/delete`}${id}`);
+    return this.apiService.delete(`${`bookings/delete/`}${id}`);
   }
   updateBookings(resource: any): Observable<Bookings> {
     return this.apiService.update('bookings/edit', resource);

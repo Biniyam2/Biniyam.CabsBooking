@@ -52,7 +52,7 @@ export class BookingsHistoryEditComponent implements OnInit {
   edit() {
     console.log('button was clicked');
     this.bookingsService.updateBookingsHistory(this.booking).subscribe();
-    this.route.navigate(['/']);
+    this.route.navigate(['/bookingsHistory']);
     console.log(this.booking);
   }
 

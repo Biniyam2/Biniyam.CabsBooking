@@ -39,7 +39,7 @@ export class BookingsHistoryAddComponent implements OnInit {
   add() {
     console.log('button was clicked');
     this.bookingsService.addBookingsHistory(this.booking).subscribe();
-    this.router.navigate(['/']);
+    this.router.navigate(['/bookingsHistory']);
     console.log(this.booking);
   }
 

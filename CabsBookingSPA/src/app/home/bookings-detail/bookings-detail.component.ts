@@ -31,9 +31,10 @@ export class BookingsDetailComponent implements OnInit {
 
 
   delete() {
-      console.log('button was clicked');
+      console.log('button was clicked ');
+      console.log(this.id);
       this.bookingsService.deleteBookings(this.id).subscribe( );
-       this.router.navigate(['/'])
+      this.router.navigate(['/'])
   
     }
 

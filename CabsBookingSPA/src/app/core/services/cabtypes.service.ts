@@ -16,7 +16,7 @@ export class CabtypesService {
     return this.apiService.getOne(`${`cabTypes/`}${id}`);
   }
   deleteCabTypes(id : number): Observable<CabTypes> {
-    return this.apiService.delete(`${`cabTypes/`}${id}`);
+    return this.apiService.delete(`${`cabTypes/delete/`}${id}`);
   }
   updateCabTypes(resource: any): Observable<CabTypes> {
     return this.apiService.update('cabTypes/edit', resource);

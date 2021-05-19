@@ -23,7 +23,7 @@ export class CabtypesAddComponent implements OnInit {
   add() {
     console.log('button was clicked');
     this.cabtypesService.addCabTypes(this.cabtype).subscribe();
-    this.router.navigate(['/']);
+    this.router.navigate(['/cabType']);
     console.log(this.cabtype);
   }
 

@@ -35,7 +35,7 @@ export class CabtypesEditComponent implements OnInit {
   edit() {
     console.log('button was clicked');
     this.cabtypesService.updateCabTypes(this.cabtype).subscribe();
-    this.route.navigate(['/']);
+    this.route.navigate(['/cabType']);
     console.log(this.cabtype);
   }
 

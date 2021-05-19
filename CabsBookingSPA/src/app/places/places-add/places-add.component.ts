@@ -24,7 +24,7 @@ export class PlacesAddComponent implements OnInit {
   add() {
     console.log('button was clicked');
     this.placesService.addPlaces(this.place).subscribe();
-    this.router.navigate(['/']);
+    this.router.navigate(['/places']);
     console.log(this.place);
   }
 
