@@ -37,16 +37,16 @@ namespace CabsBooking.API
             services.AddDbContext<CabsBookingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("CabsBookingDB")));
 
             //************* Repository *****************
-            services.AddTransient<IBookingsRepository, BookingsRepository>();
-            services.AddTransient<IBookingsHistoryRepository, BookingsHistoryRepository>();
-            services.AddTransient<IPlacesRepository, PlaceRepository>();
-            services.AddTransient<ICabTypesRepository, CabTypesRepository>();
+            services.AddScoped<IBookingsRepository, BookingsRepository>();
+            services.AddScoped<IBookingsHistoryRepository, BookingsHistoryRepository>();
+            services.AddScoped<IPlacesRepository, PlaceRepository>();
+            services.AddScoped<ICabTypesRepository, CabTypesRepository>();
 
             //************* service *****************
-            services.AddTransient<IBookingsService, BookingsService>();
-            services.AddTransient<IBookingsHistoryService, BookingsHisotryService>();
-            services.AddTransient<IPlacesService, PlacesService>();
-            services.AddTransient<ICabTypesService, CabTypesService>();
+            services.AddScoped<IBookingsService, BookingsService>();
+            services.AddScoped<IBookingsHistoryService, BookingsHisotryService>();
+            services.AddScoped<IPlacesService, PlacesService>();
+            services.AddScoped<ICabTypesService, CabTypesService>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
