@@ -1,0 +1,663 @@
+function searchView(btn) {
+
+    var pagingInfo = getPagingInfo($(btn));
+    var data = pagingInfo.currentPageInfo;
+    var containerId = pagingInfo.outerContainerId
+    data.SearchString = $("#" + containerId).find(".search-field").val();
+
+    if (!data.FieldFilters) {
+        data.FieldFilters = [];
+    }
+
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    updateBrowserState(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+}
+
+function sortView(linkObj) {
+    var pagingInfo = getPagingInfo(linkObj);
+    var data = pagingInfo.currentPageInfo;
+    var sortColumn = $(linkObj).data("field-name");
+    var sortOrder = data.SortOrder;
+
+    if (data.SortColumn === sortColumn) {
+        sortOrder = (sortOrder === "asc") ? "desc" : "asc";
+    }
+    else {
+        sortOrder = "asc";
+    }
+
+    data.SortColumn = sortColumn;
+    data.SortOrder = sortOrder;
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    updateBrowserState(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+}
+
+function resetView(button) {
+    var pagingInfo = getPagingInfo(button);
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    var data = pagingInfo.currentPageInfo;
+    data.SearchString = "";
+    $("#list-start-date").val('')
+    $("#list-end-date").val('')
+    data.FieldFilters = {};
+    data.ExtSearchFilters = {};
+    data.Page = 1;
+
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    pagingInfo.resetView = true;
+    updateBrowserState(pagingInfo);
+}
+function navigateView(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    data.Page = $(button).data("page-number");
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+}
+
+
+function categorizeView(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    data.CategorizedColumn = $(button).data("field-name");
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+}
+
+function showColumnFilter(button) {
+    var pagingInfo = getPagingInfo(button);
+    var fieldName = $(button).data("field-name");
+    var outerContainer = $(button).closest(".viewContainer");
+    var filterContainer = $(outerContainer).find(".filter-value-container");
+    $(filterContainer).html("<div style='margin:20px'>Loading...</div>");
+    var data = pagingInfo.currentPageInfo;
+    data.columnName = fieldName;
+    submitPartial(pagingInfo.partialUrlPath + "/filter-values", data, pagingInfo.viewKey + "_filterValueContainer");
+    $(filterContainer).addClass("show-element");
+
+    var containerWidth = $("#contentContainer").width();
+    var btnLeft = $(button).offset().left;
+    var dropdownLeft = btnLeft - $(".left-nav").width() - 250;
+    if (containerWidth < dropdownLeft + 450) {
+        dropdownLeft -= 200;
+    }
+    if (dropdownLeft < 200) {
+        dropdownLeft = 200;
+    }
+    $(filterContainer).css({ "top": 130, "left": dropdownLeft });
+}
+function hideColumnFilter(button) {
+    var outerContainer = $(button).closest(".viewContainer");
+    var filterContainer = $(outerContainer).find(".filter-value-container");
+    $(filterContainer).removeClass("show-element");
+}
+function filterActiveRecords(link) {
+    var filterFlag = $(link).data("filter-flag");
+    var pagingInfo = getPagingInfo(link);
+    var data = pagingInfo.currentPageInfo;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    data.ActiveFilterFlag = filterFlag;
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+}
+function exportView(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    submitPartial("/" + pagingInfo.exportUrlPath, data, pagingInfo.outerContainerId);
+}
+
+
+
+function showExtendedSearch(button) {
+    var pagingInfo = getPagingInfo(button);
+    var viewKey = pagingInfo.viewKey;
+    $(".dropdown-content").removeClass("show-element");
+    document.getElementById(viewKey + "_ExtendedSearch").classList.toggle("show-element");
+}
+
+function closeExtSearch(button) {
+    var pagingInfo = getPagingInfo(button);
+    var viewKey = pagingInfo.viewKey;
+    document.getElementById(viewKey + "_ExtendedSearch").classList.toggle("show-element");
+}
+
+function filterView(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    var fieldName = $(button).data("field-name");
+    var currentFilters = data.FieldFilters;
+    if (!currentFilters) {
+        currentFilters = [];
+    }
+    var fieldFilter = { FieldName: fieldName, Values: [] };
+    $(button).closest(".dropdown-content").find('input:checkbox').each(function () {
+        if (this.checked)
+            fieldFilter.Values.push(this.value);
+    });
+    if (fieldFilter.Values.length > 0) {
+        currentFilters = $.grep(currentFilters, function (val, i) {
+            return (val.FieldName !== fieldName);
+        });
+        currentFilters.push(fieldFilter);
+    }
+    data.FieldFilters = currentFilters;
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+    $(".dropdown-content").removeClass("show");
+}
+
+function clearFieldFilter(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    var fieldName = $(button).data("field-name");
+    removeFieldFilter(data.FieldFilters, fieldName);
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+    $(".dropdown-content").removeClass("show");
+}
+
+function searchViewExtended(button) {
+    var pagingInfo = getPagingInfo(button);
+    var viewKey = pagingInfo.viewKey;
+    var data = pagingInfo.currentPageInfo;
+
+    var fieldName;
+    var fieldType;
+    var value1;
+    var value2;
+    var operator;
+    var extFilters = [];
+
+    $("#" + viewKey + "_ExtendedSearch").find(".ext-search-row").each(function () {
+        operator = "";
+        value1 = "";
+        value2 = "";
+        fieldName = $(this).data("field-name");
+        fieldType = $(this).data("field-type");
+        value1 = $(this).find(".value1").val();
+        if (value1 !== "") {
+            var extSearch = { "FieldName": fieldName, "Value1": value1 };
+            if (fieldType !== "Text") {
+                operator = $(this).find(".operator").val();
+                extSearch.Operator = operator;
+                value2 = $(this).find(".value2").val();
+                if (value2 !== "") {
+                    extSearch.Value2 = value2;
+                }
+            }
+            extFilters.push(extSearch);
+        }
+
+    });
+
+    if (extFilters.length > 0) {
+        data.ExtSearchFilters = extFilters;
+        data.Page = 1;
+        var containerId = getViewRefreshContainerId(pagingInfo);
+        submitPartial(pagingInfo.partialUrlPath, data, containerId);
+        updateBrowserState(pagingInfo);
+    }
+}
+function togglePreview(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    data.ControllerName = pagingInfo.controllerName;
+    data.ActionName = pagingInfo.actionName;
+    submitPartial("/Home/TogglePreview", data, pagingInfo.outerContainerId);
+}
+
+function refreshViewFromModal(btn) {
+    var modal = $(btn).closest(".modal");
+    var key = modal.data("key");
+    var container = $('#' + key + '_listViewOuterContainer').find('.viewContainer');
+    var pagingInfo = getPagingInfoFromContainer(container);
+    var data = pagingInfo.currentPageInfo;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    hideModal($(modal).attr("id"));
+}
+function refreshView(parentElement) {
+    var container = $(parentElement).find('.viewContainer');
+    var pagingInfo = getPagingInfoFromContainer(container);
+    var data = pagingInfo.currentPageInfo;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+}
+
+function refreshMasterView() {
+    var container = $('.viewContainer');
+    if (container.length > 0) {
+        var pagingInfo = getPagingInfoFromContainer(container);
+        var data = pagingInfo.currentPageInfo;
+        var containerId = getViewRefreshContainerId(pagingInfo);
+        $("#" + containerId).data('disableFirstLoad', true);
+        submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    }
+}
+function getPreviewContainer(btn) {
+    var pagingInfo = getPagingInfo(btn);
+    var viewKey = pagingInfo.viewKey;
+    return viewKey + "_PreviewContainer";
+}
+function getMasterPreviewContainer() {
+    var pagingInfo = getMainPagingInfo();
+    var viewKey = pagingInfo.viewKey;
+
+    return viewKey + "_PreviewContainer";
+}
+
+function updateDisplayType(btn) {
+    var pagingInfo = getPagingInfo(btn);
+    var data = pagingInfo.currentPageInfo;
+    data.DisplayType = $(btn).data("display-type");
+    var containerId = "recordListContainer";
+    submitPartial(pagingInfo.partialUrlPath + "/update-display", data, containerId);
+}
+
+function deleteSelected(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    var selectedIds = [];
+    $(".listRecordSelecter:checkbox:checked").each(function () {
+        selectedIds.push($(this).closest("tr").data("id"));
+    });
+    data.SelectedIds = selectedIds;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial("/" + pagingInfo.controllerName + "/DeleteSelected", data, containerId);
+}
+
+function getPagingInfo(srcElement) {
+    var container = $(srcElement).closest('.viewContainer');
+    var pagingInfo = getPagingInfoFromContainer(container);
+    return pagingInfo;
+}
+//get pagingInfo when the trigger source is outside the view control
+function getMainPagingInfo() {
+    var container = $('.viewContainer');
+    var pagingInfo = getPagingInfoFromContainer(container);
+    return pagingInfo;
+}
+function getPagingInfoFromContainer(container) {
+    var pagingInfo = {};
+    pagingInfo.currentPageInfo = container.data("current-page-info");
+    pagingInfo.viewKey = container.data("view-key");
+    pagingInfo.controllerName = container.data("controller-name");
+    pagingInfo.actionName = container.data("action-name");
+    pagingInfo.recordRoute = container.data("record-route");
+    pagingInfo.uniqueColumnValuePath = container.data("unique-column-value-path");
+    pagingInfo.partialUrlPath = container.data("partial-url-path");
+    pagingInfo.exportUrlPath = container.data("export-url-path");
+    pagingInfo.detailsUrlPath = container.data("details-url-path");
+    pagingInfo.newUrlPath = container.data("new-url-path");
+    pagingInfo.editUrlPath = container.data("edit-url-path");
+    pagingInfo.saveUrlPath = container.data("save-url-path");
+    pagingInfo.allowPreview = container.data("allow-preview");
+    pagingInfo.outerContainerId = container.data("outer-container-id");
+    pagingInfo.listDataContainerId = container.data("list-data-container-id");
+    pagingInfo.verticalSplit = container.data("vertical-split");
+    pagingInfo.searchString = container.find(".search-field").val();
+    return pagingInfo;
+}
+function getFieldFilter(fieldFilters, fieldName) {
+    if (!fieldFilters)
+        return false;
+    if (fieldFilters.length > 0) {
+        for (var i = 0; i < fieldFilters.length; i++) {
+            if (fieldFilters[i].FieldName === fieldName) {
+                return fieldFilters[i];
+            }
+        }
+    }
+    return true;
+}
+function removeFieldFilter(fieldFilters, fieldName) {
+    if (!fieldFilters)
+        return false;
+    if (fieldFilters.length > 0) {
+        for (var i = 0; i < fieldFilters.length; i++) {
+            if (fieldFilters[i].FieldName === fieldName) {
+                fieldFilters.splice(i, 1);
+            }
+        }
+    }
+    return true;
+}
+
+function removeFilter(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    var fieldName = $(button).data("field-name");
+    var type = $(button).data("type");
+    if (fieldName == "SearchString") {
+        data.SearchString = "";
+    }
+    else {
+        if (type == "ext-search") {
+            removeFieldFilter(data.ExtSearchFilters, fieldName)
+        }
+        else {
+            removeFieldFilter(data.FieldFilters, fieldName)
+        }
+    }
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+    $(".dropdown-content").removeClass("show");
+}
+function removeFilterValue(button) {
+    var pagingInfo = getPagingInfo(button);
+    var data = pagingInfo.currentPageInfo;
+    var fieldName = $(button).data("field-name");
+    var fieldVal = $(button).data("field-val");
+    var filter = getFieldFilter(data.FieldFilters, fieldName)
+    for (var i = 0; i < filter.Values.length; i++) {
+        if (filter.Values[i] == fieldVal) {
+            filter.Values.splice(i, 1);
+        }
+    }
+    if (filter.Values.length == 0) {
+        removeFieldFilter(data.FieldFilters, fieldName)
+    }
+    data.Page = 1;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    submitPartial(pagingInfo.partialUrlPath, data, containerId);
+    updateBrowserState(pagingInfo);
+    $(".dropdown-content").removeClass("show");
+
+}
+
+function openNewInPopup(linkObject) {
+    var pagingInfo = getPagingInfo(linkObject);
+    var viewKey = pagingInfo.viewKey;
+    var modalId = viewKey + "_Modal";
+    var key = pagingInfo.currentPageInfo.CategoryKey;
+    var data = {};
+    var onComplete = {
+        runMethod: function (modalId) {
+            openModal(modalId)
+        },
+        params: [modalId]
+    };
+
+    if (key != null) {
+        data.key = key;
+    }
+    loadPartial(pagingInfo.newUrlPath, data, viewKey + "_Body", onComplete);
+}
+
+function openDetailsInPopup(linkObject) {
+    var pagingInfo = getPagingInfo(linkObject);
+    var viewKey = pagingInfo.viewKey;
+    var id = $(linkObject).closest("tr").data("id");
+    $("TR.table-primary").removeClass("table-primary");
+    $(linkObject).closest("tr").addClass("table-primary");
+    var modalId = viewKey + "_Modal";
+    var refreshId = viewKey + "_Body";
+    var onComplete = {};
+    if ($(linkObject).data("is-inline") === "True") {
+        refreshId = viewKey + "_Modal_inline";
+    }
+    else {
+        onComplete = {
+            runMethod: function (modalId) {
+                openModal(modalId);
+            },
+            params: [modalId]
+        };
+    }
+    if (pagingInfo.recordRoute !== "") {
+        loadPartial("/" + pagingInfo.recordRoute + "/" + id, { 'isPopup': true }, refreshId, onComplete);
+    }
+    else {
+        loadPartial(pagingInfo.detailsUrlPath, { id: id, 'isPopup': true }, refreshId, onComplete);
+    }
+
+
+}
+function openNewInPreview(linkObject) {
+    var pagingInfo = getPagingInfo(linkObject);
+    var viewKey = pagingInfo.viewKey;
+    var key = pagingInfo.currentPageInfo.CategoryKey;
+    var data = {};
+    if (key !== "") {
+        data.key = key;
+    }
+    var previewContainerId = viewKey + "_PreviewContainer";
+    loadPartial(pagingInfo.newUrlPath, data, previewContainerId);
+}
+function openDetailsInPreview(linkObject) {
+    var pagingInfo = getPagingInfo(linkObject);
+    var viewKey = pagingInfo.viewKey;
+    var isListElement = $(linkObject).is("li");
+    var id;
+    if (isListElement) {
+        id = $(linkObject).data("id");
+    }
+    else {
+        id = $(linkObject).closest("tr").data("id");
+    }
+    if (isListElement) {
+        /*
+        $(linkObject).closest("ul").find("li").removeClass("list-group-item-primary");
+        $(linkObject).addClass("list-group-item-primary");
+        */
+        $(linkObject).closest("ul").find("li").removeClass("active");
+        $(linkObject).addClass("active");
+    }
+    else {
+        $("TR.table-primary").removeClass("table-primary");
+        $(linkObject).closest("tr").addClass("table-primary");
+    }
+    var previewContainerId = viewKey + "_PreviewContainer";
+    if (pagingInfo.recordRoute !== "") {
+        loadPartial("/" + pagingInfo.recordRoute + "/" + id, {}, previewContainerId);
+    }
+    else {
+        loadPartial(pagingInfo.detailsUrlPath, { id: id }, previewContainerId);
+    }
+}
+function loadFirstRecord(containerId) {
+
+    if ($("#" + containerId + "_listViewDataContainer").data('disableFirstLoad') !== true) {
+        var liObj = $("#ul_" + containerId).find("li.list-data");
+        if (liObj.length > 0) {
+            openDetailsInPreview(liObj[0]);
+        }
+    }
+
+}
+
+function reloadPreviewRecord() {
+
+    if (responseData !== "") {
+        var response = JSON.parse(responseData);
+        var liObj = $(".vs-list").find("[data-id='" + response.key + "']");
+        if (liObj.length > 0) {
+            openDetailsInPreview(liObj[0]);
+        }
+    }
+}
+
+function getViewRefreshContainerId(pagingInfo) {
+    if (pagingInfo.allowPreview === "True" || pagingInfo.verticalSplit) {
+        return pagingInfo.listDataContainerId;
+    }
+    return pagingInfo.outerContainerId;
+}
+
+function updateBrowserState(pagingInfo) {
+    return true;
+    if (!pagingInfo.currentPageInfo.UpdateBrowserState)
+        return true;
+    var containerId = getViewRefreshContainerId(pagingInfo);
+    var stateData = {};
+    //stateData.PagingInfo = pagingInfo;
+    stateData.path = pagingInfo.partialUrlPath;
+    stateData.containerId = containerId;
+
+    var filterData = {};
+    stateData.filterData = filterData;
+    if (pagingInfo.resetView === true) {
+        if (!isEmpty(pagingInfo.currentPageInfo.CategoryKey)) {
+            //stateData.filterUrl = stateData.path + "?categoryKey=" + pagingInfo.currentPageInfo.CategoryKey;
+            filterData.CategoryKey = currentPageInfo.CategoryKey;
+            history.pushState(stateData, "ListView", baseUrl + "/" + stateData.path + encodeURI(JSON.stringify(filterData)));
+        }
+        else {
+            stateData.filterUrl = stateData.path;
+            history.pushState(stateData, "ListView", baseUrl + "/" + stateData.path);
+        }
+        return true;
+    }
+
+
+    var currentPageInfo = pagingInfo.currentPageInfo;
+
+    if (!isEmpty(currentPageInfo.SearchString)) {
+        filterData.SearchString = currentPageInfo.SearchString;
+    }
+    if (!isEmpty(currentPageInfo.CategoryKey)) {
+        filterData.CategoryKey = currentPageInfo.CategoryKey;
+    }
+    if (currentPageInfo.FieldFilters.length > 0) {
+        filterData.FieldFilters = currentPageInfo.FieldFilters;
+    }
+    if (currentPageInfo.ExtSearchFilters.length > 0) {
+        filterData.ExtSearchFilters = currentPageInfo.ExtSearchFilters;
+    }
+    if (!isEmpty(currentPageInfo.SortColumn) && currentPageInfo.SortColumn !== currentPageInfo.DefaultSortColumn) {
+        filterData.SortColumn = currentPageInfo.SortColumn;
+    }
+    if (!isEmpty(currentPageInfo.SortOrder) && currentPageInfo.SortOrder !== "asc") {
+        filterData.SortOrder = currentPageInfo.SortOrder;
+    }
+    if (currentPageInfo.Page > 1) {
+        filterData.Page = currentPageInfo.Page;
+    }
+    if (jQuery.isEmptyObject(filterData)) {
+        stateData.filterUrl = stateData.path;
+        history.pushState(stateData, "ListView", baseUrl + "/" + stateData.path);
+    }
+    else {
+        //stateData.filterUrl = stateData.path + "?pageInfo=" + encodeURI(JSON.stringify(filterData));
+        history.pushState(stateData, "ListView", baseUrl + "/" + stateData.path + "?pageInfo=" + encodeURI(JSON.stringify(filterData)));
+    }
+}
+
+function updateListViewOnPopState(state) {
+    if (state !== null) {
+        try {
+            submitPartial(state.path, state.filterData, state.containerId);
+
+            // var url = state.filterUrl;
+            // location.href = url;
+        }
+        catch (e) { console.log(e); }
+    }
+}
+function removeHash(url) {
+    try {
+        if (url.charAt(url.length - 1) === "#") {
+            url = url.substring(0, url.length - 2);
+        }
+        return url;
+    }
+    catch (e) { return url; }
+}
+//Resize
+var resizeContainer = null;
+function initResize(e, viewKey) {
+    resizeContainer = document.getElementById(viewKey + "_ResizeContainer");
+    window.addEventListener('mousemove', Resize, false);
+    window.addEventListener('mouseup', stopResize, false);
+}
+function Resize(e) {
+    resizeContainer.style.height = (e.clientY - resizeContainer.offsetTop) + 'px';
+    e.stopPropagation();
+    window.event.preventDefault();
+
+}
+function stopResize(e) {
+    window.removeEventListener('mousemove', Resize, false);
+    window.removeEventListener('mouseup', stopResize, false);
+    updateResizeContainerHeight(resizeContainer.style.height);
+    resizeContainer = null;
+}
+function updateResizeContainerHeight(height) {
+    height = height.split("px")[0];
+    data = { "height": height };
+    submitPartial("/Home/SetPreviewContainerHeight", data, "");
+}
+//End Resize
+
+var dragSourceId;
+var dropTargetId;
+var currentType;
+
+function initPreviewTableDragDrop() {
+
+    $('.dnd-title').on('drop dragdrop', function (event) {
+        var key = $('#list-setting-tab-contents').data("key");
+        var container = currentType + "-setting-container";
+        loadPartial('/list-view/' + key + '/' + currentType + '/sort-title', { 'sourceField': dragSourceId, 'targetField': dropTargetId }, container)
+
+    });
+    $('.dnd-title').on('dragenter', function (event) {
+        event.preventDefault();
+        $(this).addClass("dnd-title-hover");
+        $(this).removeClass("dnd-title");
+        dropTargetId = $(this).data("field-name");
+    })
+    $('.dnd-title').on('dragleave', function () {
+        $(this).removeClass("dnd-title-hover");
+        $(this).addClass("dnd-title");
+    })
+    $('.dnd-title').on('dragover', function (event) {
+        event.preventDefault();
+        $(this).addClass("dnd-title-hover");
+        $(this).removeClass("dnd-title");
+    })
+}
+
+function setDragSource(obj, event) {
+    //alert($(obj).data("type"));
+    currentType = $(obj).data("type");
+    event.stopPropagation();
+    dragSourceId = $(obj).data("field-name");
+}
+
+
+function addListSettingField(field) {
+    var key = $('#list-setting-tab-contents').data("key");
+    var type = $(field).data("type");
+    var fieldVal = $(field).val();
+    var container = type + "-setting-container";
+    if (field.checked) {
+        loadPartial('/list-view/' + key + "/" + type + "/add-field", { 'field': fieldVal }, container);
+    }
+    else {
+        loadPartial('/list-view/' + key + "/" + type + "/remove-field", { 'field': fieldVal }, container);
+    }
+}
+
+function checkAllExportFields() {
+    var key = $('#list-setting-tab-contents').data("key");
+    var container = "export-setting-container";
+    loadPartial('/list-view/' + key + "/export/check-all", {}, container);
+}
+function uncheckAllExportFields() {
+    var key = $('#list-setting-tab-contents').data("key");
+    var container = "export-setting-container";
+    loadPartial('/list-view/' + key + "/export/uncheck-all", {}, container);
+}
